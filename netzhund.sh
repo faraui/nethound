@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 while read line; do
   IFS=':' read -r IP PORT PROTOCOL SERVICE <<< "$line"
