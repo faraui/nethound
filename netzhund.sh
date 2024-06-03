@@ -8,7 +8,8 @@ while read line; do
   echo "$IP:$PORT:$PROTOCOL" >> "$SERVICE/ports.txt"
 done < formatted-nmap.txt
 
-for dir in */; do
-  sort -o "$dir/hosts.txt" -u "$dir/hosts.txt"
-  sort -o "$dir/ports.txt" -u "$dir/ports.txt"
+for SERVICE in */; do
+  sort -o "$SERVICE/hosts.txt" -u "$SERVICE/hosts.txt"
+  sort -o "$SERVICE/ports.txt" -u "$SERVICE/ports.txt"
+  cat "$SERVICE/ports.txt" | /netzhund/scipts/$SERVICE.sh &
 done
