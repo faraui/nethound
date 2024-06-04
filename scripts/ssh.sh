@@ -1,5 +1,8 @@
 #!/bin/sh
 
+########
+# ncat #
+########
 declare -a IPS PORTS
 while read LINE; do
   IFS=':' read -r IP PORT PROTOCOL <<< "$LINE"
@@ -8,10 +11,10 @@ while read LINE; do
 done
 
 for i in "${!IPS[@]}"; do
-  echo "nc -vn ${IPS[i]} ${PORTS[i]}" >> netcat.txt
-  nc -vn ${IPS[i]} ${PORTS[i]} >> netcat.txt 2>&1
+  echo "ncat --verbose --nodns ${IPS[i]} ${PORTS[i]}" >> ncat.txt
+  ncat --verbose --nodns ${IPS[i]} ${PORTS[i]} >> ncat.txt 2>&1
 done
 
-echo "$(head -n 2 netcat.txt | tail -n 1)
+echo "$(ncat --version 2>&1)
 
-$(sed 's/Ncat://g; /nmap.org/d; s/^/^  /g; s/^  nc -vn/^nc -vn' netcat.txt)" > netcat.txt
+$(sed 's/Ncat: //g; /nmap.org/d; s/^/  /g; s/^  ncat --/ncat --/g' ncat.txt)" > ncat.txt
