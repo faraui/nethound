@@ -1,9 +1,10 @@
 #!/bin/sh
 
+declare -a IPS PORTS
+
 ########
 # ncat #
 ########
-declare -a IPS PORTS
 while read LINE; do
   IFS=':' read -r IP PORT PROTOCOL <<< "$LINE"
   IPS+=("$IP")
