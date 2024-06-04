@@ -1,15 +1,20 @@
 #!/bin/sh
 
-while read line; do
-  IFS=':' read -r IP PORT PROTOCOL SERVICE <<< "$line"
+#date -I
+SCAN_NAME=LOL
+
+while read LINE; do
+  IFS=':' read -r IP PORT PROTOCOL SERVICE <<< "$LINE"
   if [[ -z "$SERVICE" ]]; then SERVICE="unknown"; fi
   mkdir -p "$SERVICE"
   echo "$IP" >> "$SERVICE/hosts.txt"
-  echo "$IP:$PORT:$PROTOCOL" >> "$SERVICE/ports.txt"
+  echo "$IP:$PORT:$PROTOCOL" >> "scans/$SCAN_NAME/$SERVICE/ports.txt"
 done < formatted-nmap.txt
 
 for SERVICE in */; do
-  sort -o "$SERVICE/hosts.txt" -u "$SERVICE/hosts.txt"
-  sort -o "$SERVICE/ports.txt" -u "$SERVICE/ports.txt"
-  cat "$SERVICE/ports.txt" | /netzhund/scipts/$SERVICE.sh &
+  sort -o "scans/$SCAN_NAME/$SERVICE/hosts.txt" -u "scans/$SCAN_NAME/$SERVICE/hosts.txt"
+  sort -o "scans/$SCAN_NAME/$SERVICE/ports.txt" -u "scans/$SCAN_NAME/$SERVICE/ports.txt"
+  cat "$SERVICE/ports.txt" | ./scripts/$SERVICE.sh &
 done
+
+wait
