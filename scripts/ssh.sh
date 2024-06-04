@@ -16,5 +16,4 @@ for i in "${!IPS[@]}"; do
 done
 
 echo "$(ncat --version 2>&1)
-
-$(sed '/nmap.org/d; s/^/  /g; s/^  ncat/ncat/g' ncat.txt)" > ncat.txt
+$(sed '/nmap.org/d; s/^/  /g; s/^  ncat/\nncat/g' ncat.txt)" > ncat.txt
