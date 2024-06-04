@@ -14,4 +14,4 @@ done
 
 echo "$(head -n 2 netcat.txt | tail -n 1)
 
-$(sed 's/Ncat:/ /g; /nmap.org/d' netcat.txt)" > netcat.txt
+$(sed 's/Ncat://g; /nmap.org/d; s/^/^  /g; s/^  nc -vn/^nc -vn' netcat.txt)" > netcat.txt
