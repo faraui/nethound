@@ -38,10 +38,11 @@ else
 fi
 
 if [ -d "scans/$SCAN_NAME" ]; then
-  SCAN_NAME_SUFFIX=1
+  SCAN_NAME_SUFFIX=0
   while [ -d "scans/$SCAN_NAME"_"$SCAN_NAME_SUFFIX" ]; do
     SCAN_NAME_SUFFIX=$((SCAN_NAME_SUFFIX + 1))
   done
+  SCAN_NAME="$SCAN_NAME"_"$SCAN_NAME_SUFFIX"
 fi
 
 sudo echo "Scan $SCAN_NAME is initialised with $HOSTS_FILE"
