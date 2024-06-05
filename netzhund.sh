@@ -8,7 +8,7 @@ for ARGUMENT in "$@"; do
       exit 0
       ;;
     -u|--usage)
-      echo "Usage: $0 [GNU or POSIX style options] <hosts file> [scan name]"
+      echo "Usage: $0 [GNU or POSIX style options] [scan name] <hosts file>"
       exit 0
       ;;
     -v|--version)
@@ -27,7 +27,7 @@ done
 
 if [ -z "$HOSTS_FILE" ]; then
   echo "Error: no hosts file passed" >&2
-  echo "Usage: $0 [GNU or POSIX style options] <hosts file> [scan name]" >&2
+  echo "Usage: $0 [GNU or POSIX style options] [scan name] <hosts file>" >&2
   exit 2
 fi
 
