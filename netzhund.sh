@@ -8,7 +8,7 @@ for ARGUMENT in "$@"; do
       exit 0
       ;;
     -u|--usage)
-      echo "Usage: $0 [GNU or POSIX style options] <hosts file> <scan name>"
+      echo "Usage: $0 [GNU or POSIX style options] <hosts file> [scan name]"
       exit 0
       ;;
     -v|--version)
@@ -26,8 +26,8 @@ for ARGUMENT in "$@"; do
 done
 
 if [ -z "$HOSTS_FILE" ]; then
-  echo "Syntax error: no hosts file passed" >&2
-  echo "Usage: $0 [GNU or POSIX style options] <hosts file> <scan name>" >&2
+  echo "Error: no hosts file passed" >&2
+  echo "Usage: $0 [GNU or POSIX style options] <hosts file> [scan name]" >&2
   exit 2
 fi
 
@@ -35,6 +35,13 @@ if ! [ -z "$SCAN_NAME" ]; then
   SCAN_NAME="$(date -I)_$SCAN_NAME"
 else
   SCAN_NAME="$(date -I)"
+fi
+
+if [ -d "scans/$SCAN_NAME" ]; then
+  SCAN_NAME_SUFFIX=1
+  while [ -d "scans/$SCAN_NAME"_"$SCAN_NAME_SUFFIX" ]; do
+    SCAN_NAME_SUFFIX=$((SCAN_NAME_SUFFIX + 1))
+  done
 fi
 
 sudo echo "Scan $SCAN_NAME is initialised with $HOSTS_FILE"
