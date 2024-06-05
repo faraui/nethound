@@ -37,7 +37,7 @@ else
   SCAN_NAME="$(date -I)"
 fi
 
-echo "Scan $SCAN_NAME initialised with $HOSTS_FILE started."
+sudo echo "Scan $SCAN_NAME initialised with $HOSTS_FILE started."
 
 while read LINE; do
   IFS=':' read -r IP PORT PROTOCOL SERVICE <<< "$LINE"
