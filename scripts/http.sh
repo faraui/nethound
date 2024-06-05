@@ -1,9 +1,9 @@
 #!/bin/sh
 
-read OUTPUT_DIR
+read SCAN_DIR
 declare -a IPS PORTS
 while read LINE; do
   IFS=':' read -r IP PORT PROTOCOL <<< "$LINE"
   IPS+=("$IP")
   PORTS+=("$PORT")
-done < $OUTPUT_DIR/ports.txt
+done < $SCAN_DIR/ports.txt
