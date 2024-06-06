@@ -57,7 +57,7 @@ while read LINE; do
   echo "$IP:$PORT:$PROTOCOL" >> "scans/$SCAN_NAME/$SERVICE/ports.txt"
 done < $HOSTS_FILE
 
-for SERVICE in $(ls -1 scans/$SCAN_NAME); do
+for SERVICE in scans/$SCAN_NAME/*; do
   sort -o "scans/$SCAN_NAME/$SERVICE/hosts.txt" -u "scans/$SCAN_NAME/$SERVICE/hosts.txt"
   sort -o "scans/$SCAN_NAME/$SERVICE/ports.txt" -u "scans/$SCAN_NAME/$SERVICE/ports.txt"
   echo "scans/$SCAN_NAME/$SERVICE" | sudo ./scripts/$SERVICE.sh  2> >(sed "s/.*\//No script for service /; s/.sh.*//" 1>&2) &
